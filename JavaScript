@@ -1,0 +1,45 @@
+import React, { useState } from "react";
+
+const HabitTracker = () => {
+  const [habits, setHabits] = useState([]);
+
+  const addHabit = (habitName) => {
+    const newHabits = [...habits, { name: habitName, completed: false }];
+    setHabits(newHabits);
+  };
+
+  const markHabitCompleted = (habitName) => {
+    const updatedHabits = habits.map((habit) => {
+      if (habit.name === habitName) {
+        habit.completed = true;
+      }
+
+      return habit;
+    });
+
+    setHabits(updatedHabits);
+  };
+
+  return (
+    <div>
+      <h1>Habit Tracker</h1>
+      <ul>
+        {habits.map((habit) => (
+          <li key={habit.name}>
+            {habit.name}
+            <button onClick={() => markHabitCompleted(habit.name)}>
+              Mark as completed
+            </button>
+          </li>
+        ))}
+      </ul>
+      <input
+        type="text"
+        placeholder="Add a new habit"
+        onChange={(event) => addHabit(event.target.value)}
+      />
+    </div>
+  );
+};
+
+export default HabitTracker;
